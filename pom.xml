@@ -19,23 +19,66 @@
         <project.reportiong.outputEncoding>UTF-8</project.reportiong.outputEncoding>
         <java.version>1.8</java.version>
         <!-- 版本管理 -->
-        <shiro-web.version>1.4.0</shiro-web.version>
+        <springboot-shiro-web.version>1.4.1</springboot-shiro-web.version>
+        <springboot-mybatis.version>2.0.1</springboot-mybatis.version>
+        <springboot-mybatis-plus.version>3.1.1</springboot-mybatis-plus.version>
+        <springboot-mybatis-plus-generator.version>3.1.1</springboot-mybatis-plus-generator.version>
+        <velocity.version>2.1</velocity.version>
+        <springboot-druid.version>1.1.16</springboot-druid.version>
     </properties>
 
     <!-- 依赖项 -->
     <dependencies>
 
-        <!-- Spring Boot Web -->
+        <!-- Spring Boot JDBC -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!-- Spring Boot Mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${springboot-mybatis.version}</version>
+        </dependency>
+        <!-- Spring Boot Mybatis plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${springboot-mybatis-plus.version}</version>
+        </dependency>
+        <!-- Spring Boot Mybatis plus generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${springboot-mybatis-plus-generator.version}</version>
+        </dependency>
+        <!-- Velocity -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity.version}</version>
+        </dependency>
+
+
+        <!-- Mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- Spring Boot Druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${springboot-druid.version}</version>
         </dependency>
 
         <!-- Spring Boot Shiro -->
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
-            <version>${shiro-web.version}</version>
+            <version>${springboot-shiro-web.version}</version>
         </dependency>
 
         <!-- Lombok -->
