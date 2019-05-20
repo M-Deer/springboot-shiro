@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @ClassName: CustomRealm
  * @Author: Mr_Deer
  * @Date: 2019/5/17 9:54
- * @Description:
+ * @Description: 自定义数据源
  */
 public class CustomRealm extends AuthorizingRealm {
 
@@ -50,8 +50,9 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        System.out.println(" = = = = = = = = = = = = = = = = 开始进行认证 = = = = = = = = = = = = = = = = ");
         // 1. 获取用户名
-        String username = (String) authenticationToken.getCredentials();
+        String username = authenticationToken.getPrincipal().toString();
         // 2. 现根据用户名查询是否存在该用户
         User user = userMapper.selectOne(Wrappers.<User>lambdaQuery().eq(User::getUsername, username));
         // 3. 判断 user 是否为空

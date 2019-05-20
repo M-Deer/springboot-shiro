@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * User 实体类
  * </p>
  *
  * @author Mr_Deer
@@ -24,7 +24,7 @@ import java.io.Serializable;
 @TableName("USER")
 public class User implements Serializable {
 
-private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键

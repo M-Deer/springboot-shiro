@@ -1,5 +1,6 @@
 package com.deer.shiro;
 
+import com.deer.component.shiro.CustomRealm;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -132,5 +133,28 @@ public class ShiroTest {
 
         // 8. 判断用户是否拥有单个权限，拥有则没有任何操作，不拥有则抛出 UnauthorizedException 异常
         subject.checkRole("department:create");
+    }
+
+    /**
+     * 测试自定义 Realm
+     */
+    @Test
+    public void customRealmTest(){
+        // 1. 获取默认的管理管理器 SecurityManager
+        DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
+        // 2. 创建一个 Realm，同时把我们写好的 ini 文件路径放进来
+        CustomRealm customRealm = new CustomRealm();
+        // 3. 设置 Realm
+        defaultSecurityManager.setRealm(customRealm);
+        // 4. 将 SecurityManager 绑定到当前环境中，注意这里的 SecurityUtils 引用的是：org.apache.shiro.SecurityUtils 不要引用错误了
+        SecurityUtils.setSecurityManager(defaultSecurityManager);
+        // 5. 创建当前登陆的主体
+        Subject subject = SecurityUtils.getSubject();
+        // 6. 创建主体登录所需要的认证信息对象 token。也就是我们的用户名和密码
+        String username = "userA";
+        String password = "111";
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        // 7. 登录认证
+        subject.login(token);
     }
 }
