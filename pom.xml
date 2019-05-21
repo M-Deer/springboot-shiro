@@ -23,8 +23,9 @@
         <springboot-mybatis.version>2.0.1</springboot-mybatis.version>
         <springboot-mybatis-plus.version>3.1.1</springboot-mybatis-plus.version>
         <springboot-mybatis-plus-generator.version>3.1.1</springboot-mybatis-plus-generator.version>
-        <velocity.version>2.1</velocity.version>
         <springboot-druid.version>1.1.16</springboot-druid.version>
+        <velocity.version>2.1</velocity.version>
+        <fastjson.version>1.2.57</fastjson.version>
     </properties>
 
     <!-- 依赖项 -->
@@ -33,6 +34,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- Spring Boot Thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
         <!-- Spring Boot JDBC -->
         <dependency>
@@ -91,7 +97,12 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <!-- Fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
         <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

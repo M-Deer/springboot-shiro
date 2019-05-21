@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- 用户管理页 -->
+    <meta charset="UTF-8">
+    <title>Shiro 安全框架</title>
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/static/public/layui/css/layui.css}">
+
+    <style>
+        .layui-layout-body{
+            background-color: #f7f7f7;
+        }
+        button {
+            margin-right: 5%;
+        }
+
+        .layui-btn .layui-icon {
+            margin-right: 5px;
+        }
+
+        .btn-box {
+            margin-top: 3%;
+        }
+    </style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <div class="btn-box">
+                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-search"></i>用户查询</button>
+                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-add-circle"></i>用户新增</button>
+            </div>
+            <div class="btn-box">
+                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-edit"></i>用户修改</button>
+                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-delete"></i>用户删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

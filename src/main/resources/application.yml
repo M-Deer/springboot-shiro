@@ -1,3 +1,14 @@
+# Index Route： localhost:8080/shiro/view/login
+
+# # # # # # # # # # # # # # # # # # Server Start # # # # # # # # # # # # # # # # # #
+server:
+  # 项目启动的端口号
+  port: 8080
+  # 项目的上下文发布路径
+  servlet:
+    context-path: "/shiro"
+# # # # # # # # # # # # # # # # # # Server End # # # # # # # # # # # # # # # # # #
+
 # # # # # # # # # # # # # # # # # # Spring Start # # # # # # # # # # # # # # # # # #
 # 配置关于 spring 相关的配置
 spring:
@@ -39,6 +50,20 @@ spring:
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
 
+  # 配置静态文件资源
+  mvc:
+    static-path-pattern: /static/**
+    throw-exception-if-no-handler-found: true
+
+  # 配置thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
 # # # # # # # # # # # # # # # # # # Spring End # # # # # # # # # # # # # #
 
 # # # # # # # # # # # # # # # # # # Mybatis Start # # # # # # # # # # # # # # # # # #
