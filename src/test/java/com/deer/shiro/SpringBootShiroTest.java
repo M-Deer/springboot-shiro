@@ -1,9 +1,11 @@
 package com.deer.shiro;
 
 import com.deer.SpringbootShiroApplicationTests;
-import com.deer.model.User;
-import com.deer.service.IUserService;
-import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ThreadContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.junit.Test;
@@ -18,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SpringBootShiroTest extends SpringbootShiroApplicationTests {
 
     @Autowired
-    private IUserService iUserService;
-    @Autowired
     private DefaultWebSecurityManager defaultWebSecurityManager;
 
     /**
@@ -30,17 +30,22 @@ public class SpringBootShiroTest extends SpringbootShiroApplicationTests {
         // 注意：使用 junit 测试，并不处于同一根线程中
         ThreadContext.bind(defaultWebSecurityManager);
 
-        // 创建对象
-        User user = new User();
-        user.setUsername("Tom");
-        user.setPassword("1aaa2a3a");
+        String username = "Tom";
+        String password = "1a2a3";
+        // 1. 通过 SecurityUtils 获取主体
+        Subject subject = SecurityUtils.getSubject();
+        // 2. 将用户名和密码进行装载
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
         try {
-            // 登录测试
-            iUserService.login(user);
-            System.out.println("登录成功");
-        } catch (AuthenticationException e) {
-            // 打印错误信息
-            System.out.println(e.getMessage());
+            // 3. 执行登录
+            subject.login(usernamePasswordToken);
+            System.out.println("登录认证成功");
+        } catch (UnknownAccountException e) {
+            // 4. 用户名不存在
+            System.out.println("用户名不存在");
+        } catch (IncorrectCredentialsException e) {
+            // 4. 密码错误
+            System.out.println("密码输入错误");
         }
     }
 }

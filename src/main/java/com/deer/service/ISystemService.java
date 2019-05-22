@@ -1,24 +1,22 @@
 package com.deer.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.deer.model.User;
 import org.apache.shiro.authc.AuthenticationException;
 
 /**
- * <p>
- * User 服务类
- * </p>
- *
- * @author Mr_Deer
- * @since 2019-05-17
+ * @ClassName: ISystemService
+ * @Author: Mr_Deer
+ * @Date: 2019/5/22 11:05
+ * @Description: 系统层面 service
  */
-public interface IUserService extends IService<User> {
+public interface ISystemService {
 
     /**
      * 登录认证
      *
      * @param user 用户对象
+     * @return 主页路由
      * @throws AuthenticationException 认证失败异常
      */
-    void login(User user) throws AuthenticationException;
+    String login(User user) throws AuthenticationException;
 }

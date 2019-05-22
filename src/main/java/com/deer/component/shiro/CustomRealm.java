@@ -9,9 +9,12 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Set;
 
 /**
  * @ClassName: CustomRealm
@@ -38,7 +41,15 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        System.out.println(" = = = = = = = = = = = = = = = = 开始进行授权 = = = = = = = = = = = = = = = = ");
+        // 1. 获取用户名
+        String username = principalCollection.getPrimaryPrincipal().toString();
+        // 2. 通过用户名查询所有的权限表达式
+        Set<String> permissions = userMapper.getPermissionExpressionsByUsername(username);
+        // 3. 返回授权用户对象，同时装载权限
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.setStringPermissions(permissions);
+        return info;
     }
 
     /**

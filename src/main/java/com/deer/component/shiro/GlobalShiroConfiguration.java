@@ -35,10 +35,7 @@ public class GlobalShiroConfiguration {
 
         // 设置默认登陆页面
         shiroFilterFactoryBean.setLoginUrl(VIEW_PREFIX + "/login");
-        // 设置认证通过后跳转页面
-        shiroFilterFactoryBean.setSuccessUrl(VIEW_PREFIX + "/main");
-        // 设置未授权的页面
-        shiroFilterFactoryBean.setUnauthorizedUrl(VIEW_PREFIX + "/unauthorized");
+
         // 设置拦截器 Map
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap());
 
@@ -71,7 +68,7 @@ public class GlobalShiroConfiguration {
         // 登录页 URL 放行
         filterMap.put(VIEW_PREFIX + "/login", "anon");
         // 提交登录认证的 URL 放行
-        filterMap.put("/login", "anon");
+        filterMap.put("/system", "anon");
         // 其他的全部必须全部通过认证后才能访问
         filterMap.put("/**", "authc");
         return filterMap;

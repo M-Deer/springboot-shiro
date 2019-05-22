@@ -8,9 +8,10 @@
     <link rel="stylesheet" th:href="@{/static/public/layui/css/layui.css}">
 
     <style>
-        .layui-layout-body{
+        .layui-layout-body {
             background-color: #f7f7f7;
         }
+
         button {
             margin-right: 5%;
         }
@@ -29,15 +30,60 @@
     <div class="layui-row">
         <div class="layui-col-md4">
             <div class="btn-box">
-                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-search"></i>部门查询</button>
-                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-add-circle"></i>部门新增</button>
+                <button class="layui-btn layui-btn-radius" id="btn_query"><i class="layui-icon layui-icon-search"></i>部门查询
+                </button>
+                <button class="layui-btn layui-btn-radius" id="btn_insert"><i
+                        class="layui-icon layui-icon-add-circle"></i>部门新增
+                </button>
             </div>
             <div class="btn-box">
-                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-edit"></i>部门修改</button>
-                <button class="layui-btn layui-btn-radius"><i class="layui-icon layui-icon-delete"></i>部门删除</button>
+                <button class="layui-btn layui-btn-radius" id="btn_update"><i class="layui-icon layui-icon-edit"></i>部门修改
+                </button>
+                <button class="layui-btn layui-btn-radius" id="btn_delete"><i class="layui-icon layui-icon-delete"></i>部门删除
+                </button>
             </div>
         </div>
     </div>
 </div>
 </body>
+<!-- JS -->
+<script th:src="@{/static/public/layui/layui.js}"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['jquery', 'layer'], function () {
+        // 请求根URL
+        const baseUrl = '/shiro';
+
+        let $ = layui.$;
+        let layer = layui.layer;
+
+        $('#btn_query').on('click', () => {
+            method.userAjax('GET');
+        });
+
+        $('#btn_insert').on('click', () => {
+            method.userAjax('POST');
+        });
+
+        $('#btn_update').on('click', () => {
+            method.userAjax('PUT');
+        });
+
+        $('#btn_delete').on('click', () => {
+            method.userAjax('DELETE');
+        });
+
+        let method = {
+            userAjax: function (method) {
+                $.ajax({
+                    url: baseUrl + '/departmentManager',
+                    method: method,
+                    success: (message) => {
+                        layer.msg(message, {icon: 1, offset: 't'});
+                    }
+                });
+            }
+        }
+    });
+</script>
 </html>

@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.deer.mapper.UserMapper">
 
+    <select id="getPermissionExpressionsByUsername" resultType="java.lang.String">
+        SELECT
+            `PERMISSION_EXPRESSION`
+        FROM
+            `PERMISSION`
+        WHERE
+            `ID` IN (
+            SELECT
+                `PERMISSION_ID`
+            FROM
+                `ROLE_PERMISSION`
+            WHERE
+            `ROLE_ID` = ( SELECT `ROLE_ID` FROM `USER_ROLE` WHERE `USER_ID` = ( SELECT `ID` FROM `USER` WHERE `USERNAME` = #{username} ) )
+            )
+    </select>
+
 </mapper>

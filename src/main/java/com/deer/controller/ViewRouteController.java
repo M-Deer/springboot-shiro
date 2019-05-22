@@ -1,5 +1,6 @@
 package com.deer.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class ViewRouteController {
      * @return 视图路径
      */
     @GetMapping(path = "/userManager")
+    @RequiresPermissions(value = "user:view")
     public String toUserManager() {
         return "userManager";
     }
@@ -60,6 +62,7 @@ public class ViewRouteController {
      * @return 视图路径
      */
     @GetMapping(path = "/departmentManager")
+    @RequiresPermissions(value = "department:view")
     public String toDepartmentManager() {
         return "departmentManager";
     }
