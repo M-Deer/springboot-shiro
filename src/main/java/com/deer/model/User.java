@@ -44,5 +44,11 @@ public class User implements Serializable {
     @TableField("PASSWORD")
     private String password;
 
+    /**
+     * 是否为 VIP（教程 自定义Token时使用,不参与数据库）
+     */
+/*    @TableField(exist = false)
+    private String isVip;*/
+
 
 }

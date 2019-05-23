@@ -25,6 +25,8 @@ public class SystemServiceImpl implements ISystemService {
         Subject subject = SecurityUtils.getSubject();
         // 2. 将用户名和密码进行装载
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
+        // 2. 教程 自定义Token时使用
+//        CustomAuthcToken usernamePasswordToken = new CustomAuthcToken(user.getUsername(), user.getPassword(), user.getIsVip());
         try {
             // 3. 执行登录
             subject.login(usernamePasswordToken);

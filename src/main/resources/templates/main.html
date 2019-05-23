@@ -26,7 +26,7 @@
             <ul class="layui-nav layui-nav-tree" lay-filter="navFilter">
                 <li class="layui-nav-item"><a th:href="@{/view/userManager}" target="body_iframe">用户管理</a></li>
                 <li class="layui-nav-item"><a th:href="@{/view/departmentManager}" target="body_iframe">部门管理</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" name="a_logout">注销</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" name="logout">注销</a></li>
             </ul>
         </div>
     </div>
@@ -48,7 +48,7 @@
         let $ = layui.$;
 
         element.on('nav(navFilter)', function (elem) {
-            if (elem.context.name === 'a_logout') {
+            if (elem.context.name === 'logout') {
                 // 注销操作
                 $.ajax({
                     url: baseUrl + '/system',
