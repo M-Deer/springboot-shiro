@@ -38,4 +38,11 @@ public class SystemServiceImpl implements ISystemService {
             throw new AuthenticationException("密码输入错误");
         }
     }
+
+    @Override
+    public String logout() {
+        // 用户注销
+        SecurityUtils.getSubject().logout();
+        return "/view/login";
+    }
 }

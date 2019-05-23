@@ -5,10 +5,7 @@ import com.deer.model.User;
 import com.deer.service.ISystemService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName: SystemController
@@ -44,5 +41,13 @@ public class SystemController {
             // 认证失败返回错误提示
             return ResponseJsonResult.unsuccessResult(e.getMessage());
         }
+    }
+
+    /**
+     * 注销/退出
+     */
+    @GetMapping
+    public String logout() {
+        return iSystemService.logout();
     }
 }

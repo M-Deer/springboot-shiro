@@ -19,4 +19,11 @@ public interface ISystemService {
      * @throws AuthenticationException 认证失败异常
      */
     String login(User user) throws AuthenticationException;
+
+    /**
+     * 注销操作
+     *
+     * @return 登录页
+     */
+    String logout();
 }

@@ -69,6 +69,8 @@ spring:
 # # # # # # # # # # # # # # # # # # Mybatis Start # # # # # # # # # # # # # # # # # #
 # 配置 mybatis plus 相关配置
 mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   # 配置映射的 xml 文件位置
   mapper-locations: classpath:mapper/**/*.xml
 # # # # # # # # # # # # # # # # # # Mybatis End # # # # # # # # # # # # # # # # # #

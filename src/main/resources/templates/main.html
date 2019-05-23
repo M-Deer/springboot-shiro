@@ -11,7 +11,8 @@
         .layui-layout-admin .layui-side {
             top: 0;
         }
-        iframe{
+
+        iframe {
             width: 100%;
             height: 98%;
         }
@@ -22,10 +23,10 @@
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="navFilter">
                 <li class="layui-nav-item"><a th:href="@{/view/userManager}" target="body_iframe">用户管理</a></li>
                 <li class="layui-nav-item"><a th:href="@{/view/departmentManager}" target="body_iframe">部门管理</a></li>
-                <li class="layui-nav-item"><a href="">注销</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" name="a_logout">注销</a></li>
             </ul>
         </div>
     </div>
@@ -39,9 +40,27 @@
 <script th:src="@{/static/public/layui/layui.js}"></script>
 <script>
     //JavaScript代码区域
-    layui.use('element', function () {
-        let element = layui.element;
+    layui.use(['element', 'jquery'], function () {
+        // 请求根URL
+        const baseUrl = '/shiro';
 
+        let element = layui.element;
+        let $ = layui.$;
+
+        element.on('nav(navFilter)', function (elem) {
+            if (elem.context.name === 'a_logout') {
+                // 注销操作
+                $.ajax({
+                    url: baseUrl + '/system',
+                    method: 'GET',
+                    dataType: 'JSON',
+                    success: (message) => {
+                        window.location.href = baseUrl + message;
+                    }
+                });
+            }
+
+        });
     });
 </script>
 </html>

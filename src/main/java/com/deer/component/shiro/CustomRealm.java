@@ -12,6 +12,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
@@ -74,7 +75,12 @@ public class CustomRealm extends AuthorizingRealm {
          * 4. user 不为空，则认证密码
          * 我们只需要给当前 查询出来的用户名、查询出来的用户密码（第三个参数是我们的当前 Realm 的名字），授权器会自动帮我们进行认证
          * 同时这里返回一个 AuthenticationInfo 的子类 SimpleAuthenticationInfo
+         *
+         * 在使用加盐操作的时候，我们使用 ByteSource.Util.bytes 然后放入盐就可以了
          */
-        return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
+        return new SimpleAuthenticationInfo(user.getUsername(),
+                user.getPassword(),
+                ByteSource.Util.bytes(user.getUsername()),
+                getName());
     }
 }

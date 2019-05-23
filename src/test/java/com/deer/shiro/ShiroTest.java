@@ -5,6 +5,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.realm.text.IniRealm;
 import org.apache.shiro.subject.Subject;
@@ -139,7 +140,7 @@ public class ShiroTest {
      * 测试自定义 Realm
      */
     @Test
-    public void customRealmTest(){
+    public void customRealmTest() {
         // 1. 获取默认的管理管理器 SecurityManager
         DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
         // 2. 创建一个 Realm，同时把我们写好的 ini 文件路径放进来
@@ -156,5 +157,22 @@ public class ShiroTest {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         // 7. 登录认证
         subject.login(token);
+    }
+
+    /**
+     * MD5 加密测试
+     */
+    @Test
+    public void md5Test() {
+        String salt = "Amy";
+        /*
+         * 第一个参数是 明文
+         * 第二个参数是 盐
+         * 第三个参数是 散列次数
+         */
+        Md5Hash md5Hash = new Md5Hash("123", null, 1);
+        Md5Hash md5Salt = new Md5Hash("123", salt, 1);
+        System.out.println("加盐前 = = = = = = = " + md5Hash);
+        System.out.println("加盐后 = = = = = = = " + md5Salt);
     }
 }

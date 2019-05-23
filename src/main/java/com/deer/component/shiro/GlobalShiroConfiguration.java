@@ -1,5 +1,6 @@
 package com.deer.component.shiro;
 
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -90,11 +91,57 @@ public class GlobalShiroConfiguration {
     /**
      * 创建 Realm
      *
+     * @param hashedCredentialsMatcher 加密器
      * @return Realm
      */
     @Bean(name = "customRealm")
-    public CustomRealm customRealm() {
+    public CustomRealm customRealm(@Qualifier(value = "hashedCredentialsMatcher") HashedCredentialsMatcher hashedCredentialsMatcher) {
         // 使用的是我们自定义的 Realm
-        return new CustomRealm();
+        CustomRealm customRealm = new CustomRealm();
+        // 装载加密器
+        customRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        return customRealm;
     }
+
+    /**
+     * 设置及加密器
+     *
+     * @return 加密器
+     */
+    @Bean("hashedCredentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        //指定加密方式为MD5
+        credentialsMatcher.setHashAlgorithmName("MD5");
+        //散列次数，默认1次
+        credentialsMatcher.setHashIterations(1);
+        return credentialsMatcher;
+    }
+
+    /* = = = = = = = = = = = = = = = = = = 注解无效时的手动配置 = = = = = = = = = = = = = = = = = = */
+
+    /**
+     * 开启Shiro的注解
+     *
+     * @return
+     */
+/*    @Bean
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
+    }*/
+
+    /**
+     * 开启aop注解支持
+     *
+     * @param defaultWebSecurityManager
+     * @return
+     */
+/*    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier(value = "defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        authorizationAttributeSourceAdvisor.setSecurityManager(defaultWebSecurityManager);
+        return authorizationAttributeSourceAdvisor;
+    }*/
 }
