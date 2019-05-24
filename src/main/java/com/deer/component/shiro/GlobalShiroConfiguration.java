@@ -3,7 +3,10 @@ package com.deer.component.shiro;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +21,14 @@ import java.util.Map;
  */
 @Configuration
 public class GlobalShiroConfiguration {
+
+    // 注入 redis 配置
+    @Value("${redis.host}")
+    private String redisHost;
+    @Value("${redis.port}")
+    private String redisPort;
+    @Value("${redis.database}")
+    private int redisDatabase;
 
     // 视图前缀
     private static final String VIEW_PREFIX = "/view";
@@ -81,10 +92,14 @@ public class GlobalShiroConfiguration {
      * @return WebSecurityManager
      */
     @Bean(name = "defaultWebSecurityManager")
-    public DefaultWebSecurityManager defaultWebSecurityManager(@Qualifier(value = "customRealm") CustomRealm customRealm) {
+    public DefaultWebSecurityManager defaultWebSecurityManager(@Qualifier(value = "customRealm") CustomRealm customRealm,
+                                                               @Qualifier(value = "shiroCacheManager") RedisCacheManager redisCacheManager) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         // 绑定 Realm
         defaultWebSecurityManager.setRealm(customRealm);
+
+        // 装载缓存管理器
+        defaultWebSecurityManager.setCacheManager(redisCacheManager);
         return defaultWebSecurityManager;
     }
 
@@ -99,7 +114,7 @@ public class GlobalShiroConfiguration {
         // 使用的是我们自定义的 Realm
         CustomRealm customRealm = new CustomRealm();
         // 装载加密器
-        customRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        customRealm.setCredentialsMatcher(hashedCredentialsMatcher);
         return customRealm;
     }
 
@@ -118,6 +133,36 @@ public class GlobalShiroConfiguration {
         return credentialsMatcher;
     }
 
+    /**
+     * 配置 redis 的管理器，在这里做 redis 的相关配置
+     * 中间用到都是我们配置文件中的值，注入址用
+     *
+     * @return redis 管理器
+     */
+    @Bean(value = "redisManager")
+    public RedisManager redisManager() {
+        RedisManager redisManager = new RedisManager();
+        // 地址的格式：127.0.0.1:6379
+        redisManager.setHost(redisHost + ":" + redisPort);
+        // 数据库的下标，使用的具体是哪一个数据分库
+        redisManager.setDatabase(redisDatabase);
+        // 超时时间
+        redisManager.setTimeout(0);
+        return redisManager;
+    }
+
+    /**
+     * 装载缓存管理器
+     *
+     * @param redisManager redis 管理器
+     * @return redis 缓存管理器
+     */
+    @Bean(value = "shiroCacheManager")
+    public RedisCacheManager shiroCacheManager(@Qualifier(value = "redisManager") RedisManager redisManager) {
+        RedisCacheManager cacheManager = new RedisCacheManager();
+        cacheManager.setRedisManager(redisManager);
+        return cacheManager;
+    }
     /* = = = = = = = = = = = = = = = = = = 注解无效时的手动配置 = = = = = = = = = = = = = = = = = = */
 
     /**

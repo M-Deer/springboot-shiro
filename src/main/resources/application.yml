@@ -14,6 +14,7 @@ server:
 spring:
   application:
     name: springboot-shiro
+
   # 配置数据源 DataSource
   datasource:
     # 数据源 DataSource 名称
@@ -78,4 +79,13 @@ mybatis-plus:
 # # # # # # # # # # # # # # # # # # Logback Start # # # # # # # # # # # # # # # # # #
 logging:
   config: classpath:logback-spring.xml
-# # # # # # # # # # # # # # # # # # Logback Start # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # Logback End # # # # # # # # # # # # # # # # # #
+
+# # # # # # # # # # # # # # # # # # Redis Start # # # # # # # # # # # # # # # # # #
+# 配置 redis
+redis:
+  host: 127.0.0.1
+  port: 6379
+  database: 0
+# # # # # # # # # # # # # # # # # # Redis End # # # # # # # # # # # # # # # # # #
+

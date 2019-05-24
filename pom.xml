@@ -26,6 +26,7 @@
         <springboot-druid.version>1.1.16</springboot-druid.version>
         <velocity.version>2.1</velocity.version>
         <fastjson.version>1.2.57</fastjson.version>
+        <shiro-redis.version>3.2.3</shiro-redis.version>
     </properties>
 
     <!-- 依赖项 -->
@@ -89,6 +90,12 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring-boot-web-starter</artifactId>
             <version>${springboot-shiro-web.version}</version>
+        </dependency>
+        <!-- Shiro-Redis -->
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>${shiro-redis.version}</version>
         </dependency>
 
         <!-- Lombok -->
