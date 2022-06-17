@@ -25,7 +25,7 @@
         <springboot-mybatis-plus-generator.version>3.1.1</springboot-mybatis-plus-generator.version>
         <springboot-druid.version>1.1.16</springboot-druid.version>
         <velocity.version>2.1</velocity.version>
-        <fastjson.version>1.2.57</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <shiro-redis.version>3.2.3</shiro-redis.version>
     </properties>
 
